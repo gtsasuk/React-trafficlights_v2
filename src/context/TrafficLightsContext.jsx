@@ -11,7 +11,7 @@ const TrafficLightsProvider = ({ children }) => {
   const [currentLightState, setCurrentLightState] = useState(null);
 
   useEffect(() => {
-    fetch("/trafficLights")
+    fetch("https://gtsasuktest1.netlify.app/trafficLights")
       .then((res) => res.json())
       .then((data) => {
         if (data?.[orientation]) {
@@ -24,7 +24,7 @@ const TrafficLightsProvider = ({ children }) => {
         console.error("Помилка завантаження trafficLights:", error)
       );
 
-    fetch("/settings")
+    fetch("https://gtsasuktest1.netlify.app/settings")
       .then((res) => res.json())
       .then((data) => {
         if (data?.[orientation]) {
@@ -63,7 +63,7 @@ const TrafficLightsProvider = ({ children }) => {
     );
     setClickCounts(updatedData);
     console.log("Updated Data to send:", updatedData);
-    fetch("/trafficLights")
+    fetch("https://gtsasuktest1.netlify.app/trafficLights")
       .then((res) => res.json())
       .then((allData) => {
         const updatedLights = {
@@ -71,7 +71,7 @@ const TrafficLightsProvider = ({ children }) => {
           [orientation]: updatedData, 
         };
 
-        return fetch("/trafficLights", {
+        return fetch("https://gtsasuktest1.netlify.app/trafficLights", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedLights),
@@ -122,7 +122,7 @@ const TrafficLightsProvider = ({ children }) => {
       .then((allData) => {
         const updatedLights = { ...allData, [orientation]: resetData };
   
-        return fetch("/trafficLights", {
+        return fetch("https://gtsasuktest1.netlify.app/trafficLights", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedLights),
@@ -135,7 +135,7 @@ const TrafficLightsProvider = ({ children }) => {
     const updatedSettings = { ...settings, brightness: value };
     setSettings(updatedSettings);
 
-    fetch("/settings")
+    fetch("https://gtsasuktest1.netlify.app/settings")
       .then((res) => res.json())
       .then((allSettings) => {
         const updatedData = {
@@ -143,7 +143,7 @@ const TrafficLightsProvider = ({ children }) => {
           [orientation]: updatedSettings,
         };
 
-        return fetch("/settings", {
+        return fetch("https://gtsasuktest1.netlify.app/settings", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedData),
@@ -156,7 +156,7 @@ const TrafficLightsProvider = ({ children }) => {
     const updatedSettings = { ...settings, blinkCount: value };
     setSettings(updatedSettings);
 
-    fetch("/settings")
+    fetch("https://gtsasuktest1.netlify.app/settings")
       .then((res) => res.json())
       .then((allSettings) => {
         const updatedData = {
@@ -164,7 +164,7 @@ const TrafficLightsProvider = ({ children }) => {
           [orientation]: updatedSettings,
         };
 
-        return fetch("/settings", {
+        return fetch("https://gtsasuktest1.netlify.app/settings", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedData),
