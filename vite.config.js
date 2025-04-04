@@ -5,8 +5,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/trafficLights": "http://localhost:5000",
-      "/settings": "http://localhost:5000"
+      "/trafficLights": "https://gtsasuktest1.netlify.app",
+      "/settings": "https://gtsasuktest1.netlify.app"
     }
   }
 })

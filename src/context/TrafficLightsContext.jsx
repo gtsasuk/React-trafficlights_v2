@@ -11,7 +11,7 @@ const TrafficLightsProvider = ({ children }) => {
   const [currentLightState, setCurrentLightState] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/trafficLights")
+    fetch("/trafficLights")
       .then((res) => res.json())
       .then((data) => {
         if (data?.[orientation]) {
@@ -24,7 +24,7 @@ const TrafficLightsProvider = ({ children }) => {
         console.error("Помилка завантаження trafficLights:", error)
       );
 
-    fetch("http://localhost:5000/settings")
+    fetch("/settings")
       .then((res) => res.json())
       .then((data) => {
         if (data?.[orientation]) {
@@ -63,7 +63,7 @@ const TrafficLightsProvider = ({ children }) => {
     );
     setClickCounts(updatedData);
     console.log("Updated Data to send:", updatedData);
-    fetch("http://localhost:5000/trafficLights")
+    fetch("/trafficLights")
       .then((res) => res.json())
       .then((allData) => {
         const updatedLights = {
@@ -71,7 +71,7 @@ const TrafficLightsProvider = ({ children }) => {
           [orientation]: updatedData, 
         };
 
-        return fetch("http://localhost:5000/trafficLights", {
+        return fetch("/trafficLights", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedLights),
@@ -117,12 +117,12 @@ const TrafficLightsProvider = ({ children }) => {
     const resetData = clickCounts.map((light) => ({ ...light, clickcount: 0 }));
     setClickCounts(resetData);
   
-    fetch("http://localhost:5000/trafficLights")
+    fetch("/trafficLights")
       .then((res) => res.json())
       .then((allData) => {
         const updatedLights = { ...allData, [orientation]: resetData };
   
-        return fetch("http://localhost:5000/trafficLights", {
+        return fetch("/trafficLights", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedLights),
@@ -135,7 +135,7 @@ const TrafficLightsProvider = ({ children }) => {
     const updatedSettings = { ...settings, brightness: value };
     setSettings(updatedSettings);
 
-    fetch("http://localhost:5000/settings")
+    fetch("/settings")
       .then((res) => res.json())
       .then((allSettings) => {
         const updatedData = {
@@ -143,7 +143,7 @@ const TrafficLightsProvider = ({ children }) => {
           [orientation]: updatedSettings,
         };
 
-        return fetch("http://localhost:5000/settings", {
+        return fetch("/settings", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedData),
@@ -156,7 +156,7 @@ const TrafficLightsProvider = ({ children }) => {
     const updatedSettings = { ...settings, blinkCount: value };
     setSettings(updatedSettings);
 
-    fetch("http://localhost:5000/settings")
+    fetch("/settings")
       .then((res) => res.json())
       .then((allSettings) => {
         const updatedData = {
@@ -164,7 +164,7 @@ const TrafficLightsProvider = ({ children }) => {
           [orientation]: updatedSettings,
         };
 
-        return fetch("http://localhost:5000/settings", {
+        return fetch("/settings", {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedData),
