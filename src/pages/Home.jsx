@@ -6,7 +6,7 @@ const Home = () => {
     <div className="home-container">
       <h1>Traffic Lights React-project</h1>
       <p>Select one of the traffic light display options above.</p>
-      <p>Test redeploy 2</p>
+      <p>Test redeploy 3</p>
     </div>
   );
 };
