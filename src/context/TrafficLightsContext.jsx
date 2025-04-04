@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 
 export const TrafficLightsContext = createContext();
 const GOOGLE_API_URL = "https://script.google.com/macros/s/AKfycbxbmKq8mPeFIOrN-e02iJG_tY7OmMyuxnUVmM4GyvEvf56hkA68HIvpbIQzsQhRuc8rWg/exec";
-const API_BASE_URL = "https://traffic-lights-api.onrender.com:10000";
+const API_BASE_URL = "https://traffic-lights-api.onrender.com";
 
 const TrafficLightsProvider = ({ children }) => {
   const [orientation, setOrientation] = useState("vertical");
