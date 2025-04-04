@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 
 export const TrafficLightsContext = createContext();
 const GOOGLE_API_URL = "https://script.google.com/macros/s/AKfycbxbmKq8mPeFIOrN-e02iJG_tY7OmMyuxnUVmM4GyvEvf56hkA68HIvpbIQzsQhRuc8rWg/exec";
+const API_BASE_URL = "https://traffic-lights-api.onrender.com:10000";
 
 const TrafficLightsProvider = ({ children }) => {
   const [orientation, setOrientation] = useState("vertical");
@@ -11,7 +12,7 @@ const TrafficLightsProvider = ({ children }) => {
   const [currentLightState, setCurrentLightState] = useState(null);
 
   useEffect(() => {
-    fetch("https://gtsasuktest1.netlify.app/trafficLights")
+    fetch(`${API_BASE_URL}/trafficLights`)
       .then((res) => res.json())
       .then((data) => {
         if (data?.[orientation]) {
@@ -24,7 +25,7 @@ const TrafficLightsProvider = ({ children }) => {
         console.error("Помилка завантаження trafficLights:", error)
       );
 
-    fetch("https://gtsasuktest1.netlify.app/settings")
+      fetch(`${API_BASE_URL}/settings`)
       .then((res) => res.json())
       .then((data) => {
         if (data?.[orientation]) {
@@ -63,7 +64,7 @@ const TrafficLightsProvider = ({ children }) => {
     );
     setClickCounts(updatedData);
     console.log("Updated Data to send:", updatedData);
-    fetch("https://gtsasuktest1.netlify.app/trafficLights")
+    fetch(`${API_BASE_URL}/trafficLights`)
       .then((res) => res.json())
       .then((allData) => {
         const updatedLights = {
@@ -71,7 +72,7 @@ const TrafficLightsProvider = ({ children }) => {
           [orientation]: updatedData, 
         };
 
-        return fetch("https://gtsasuktest1.netlify.app/trafficLights", {
+        return fetch(`${API_BASE_URL}/trafficLights`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedLights),
@@ -117,12 +118,12 @@ const TrafficLightsProvider = ({ children }) => {
     const resetData = clickCounts.map((light) => ({ ...light, clickcount: 0 }));
     setClickCounts(resetData);
   
-    fetch("/trafficLights")
+    fetch(`${API_BASE_URL}/trafficLights`)
       .then((res) => res.json())
       .then((allData) => {
         const updatedLights = { ...allData, [orientation]: resetData };
   
-        return fetch("https://gtsasuktest1.netlify.app/trafficLights", {
+        return fetch(`${API_BASE_URL}/trafficLights`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedLights),
@@ -135,7 +136,7 @@ const TrafficLightsProvider = ({ children }) => {
     const updatedSettings = { ...settings, brightness: value };
     setSettings(updatedSettings);
 
-    fetch("https://gtsasuktest1.netlify.app/settings")
+    fetch(`${API_BASE_URL}/settings`)
       .then((res) => res.json())
       .then((allSettings) => {
         const updatedData = {
@@ -143,7 +144,7 @@ const TrafficLightsProvider = ({ children }) => {
           [orientation]: updatedSettings,
         };
 
-        return fetch("https://gtsasuktest1.netlify.app/settings", {
+        return fetch(`${API_BASE_URL}/settings`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedData),
@@ -156,7 +157,7 @@ const TrafficLightsProvider = ({ children }) => {
     const updatedSettings = { ...settings, blinkCount: value };
     setSettings(updatedSettings);
 
-    fetch("https://gtsasuktest1.netlify.app/settings")
+    fetch(`${API_BASE_URL}/settings`)
       .then((res) => res.json())
       .then((allSettings) => {
         const updatedData = {
@@ -164,7 +165,7 @@ const TrafficLightsProvider = ({ children }) => {
           [orientation]: updatedSettings,
         };
 
-        return fetch("https://gtsasuktest1.netlify.app/settings", {
+        return fetch(`${API_BASE_URL}/settings`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedData),
